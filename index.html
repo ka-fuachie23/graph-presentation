@@ -3,403 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graph data structure</title>
+  <title>Graph Data structure</title>
 
-  <style>
-    *{box-sizing: border-box; margin: 0}
-    #vis-canvas{width: 100vw; height: 100vh}
-  </style>
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js" defer></script>
 </head>
+
 <body>
-  <canvas id="vis-canvas"></canvas>
+  <main>
+    <div class="presentation-controls">
+      <button type="button" data-control-prev>Prev</button>
+      <button type="button" data-control-next>Next</button>
+    </div>
 
-  <script id="data-structs">
-    class Graph {
-      constructor() {
-        this.adjacencyList = new Map()
-      }
-
-      addNode(node) {
-        this.adjacencyList.set(node, [])
-      }
-
-      addEdge(source, destination) {
-        this.adjacencyList.get(source).push(destination)
-        this.adjacencyList.get(destination).push(source)
-      }
-    }
-  </script>
+    <article data-presentation>
+      <section data-slide>
+        <h1>
+          Graph
+          <span>data structure</span>
+        </h1>
   
-  <script id="vis-data-structs">
-    class VisNode {
-      constructor(data, x = 0, y = 0) {
-        this.data = data
-        this.x = x;
-        this.y = y;
-        this.force = {x: 0, y: 0};
-        this.mass = 1
-        this.NODE_SIZE = 50
-        this.INLINE_PADDING = 10
+        <p>By <a href="https://github.com/ka-fuachie" target="_blank" rel="author">Kwabena Afari Fuachie</a></p>
+      </section>
+  
+      <section data-slide>
+        <h2>What is a graph</h2>
+        <ul>
+          <li>It is a collection of <b>nodes</b> and <b>edges</b></li>
+          <li>Nodes contain data</li>
+          <li>Edges are connections between nodes</li>
+        </ul>
+      </section>
+  
+      <section data-slide>
+        <h2>Types of graphs</h2>
+        <ul>
+          <li>Directed and undirected graphs</li>
+          <li>Weighted and unweighted graphs</li>
+        </ul>
+      </section>
 
-        this.textStyles = {
-          textAlign: "center",
-          textBaseline: "middle",
-          font: `${this.NODE_SIZE / 1.5}px monospace`,
-          fillStyle: COLORS.background
-        }
-        this.backgroundStyle = COLORS.foreground
-      }
+      <section data-slide>
+        <h2>Terminologies</h2>
 
-      update(dt) {
-        this.x += (this.force.x / this.mass) * dt
-        this.y += (this.force.y / this.mass) * dt
-      }
+        <ul>
+          <li>Vertices</li>
+          <li>
+            Adjacent nodes
+            <ul>
+              <li>Adjacent nodes are neighbours</li>
+            </ul>
+          </li>
+          <li>Cyclic and acyclic paths</li>
+        </ul>
+      </section>
 
-      render(ctx) {
-        const textWidth = visCtx.measureText(this.data).width
-        ctx.beginPath()
-        ctx.fillStyle = this.backgroundStyle
-        ctx.fillRect(
-          this.x - this.NODE_SIZE/2,
-          this.y - this.NODE_SIZE/2,
-          this.NODE_SIZE,
-          this.NODE_SIZE
-        )
+      <section data-slide>
+        <h2>Use cases</h2>
 
-        Object.assign(ctx, this.textStyles)
-        ctx.beginPath()
-        ctx.fillText(this.data, this.x, this.y)
-      }
-    }
+        <ul>
+          <li>Great for describing relationships between things</li>
+        </ul>
+      </section>
 
-    class VisGraph {
-      constructor() {
-        this.nodes = new Map()
-        this.graph = new Graph()
-        this.GRAVITY_CONSTANT = 1.1
-        this.FORCE_CONSTANT = 7_000
-        this.MAX_NODE_DIST = 200
-      }
+      <section data-slide>
+        <h2>Representation</h2>
 
-      get adjacencyList() {
-        return this.graph.adjacencyList
-      }
+        <ul>
+          <li>Adjacency matrix</li>
+          <li>Adjacency list</li>
+        </ul>
 
-      addNode(node) {
-        const visNode = new VisNode(
-          node, 
-          (Math.random() - 0.5) * 750,
-          (Math.random() - 0.5) * 750
-        )
-        this.graph.addNode(visNode)
-        this.nodes.set(node, visNode)
-        this.connectionList = []
-      }
+        <section data-slide>
+          <h3>Adjacency matrix</h3>
 
-      addEdge(source, destination) {
-        this.graph.addEdge(
-          this.nodes.get(source),
-          this.nodes.get(destination)
-        )
-        this.connectionList.push([this.nodes.get(source), this.nodes.get(destination)])
-      }
+          <ul>
+            <li>A 2d matrix of nodes with connections represented by a boolean value</li>
+            <li>Most helpful for small graphs or almost complete graphs</li>
+            <li>Space complexity: <em>O(V<sup>2</sup>)</em></li>
+            <li>Time complexity - Connection checking: <em>O(1)</em></li>
+            <li>Time complexity - Neighbours finding: <em>O(V)</em></li>
+          </ul>
+        </section>
 
-      /** 
-       * @see https://stackoverflow.com/questions/62286695/is-there-a-simple-ish-algorithm-for-drawing-force-directed-graphs 
-       */
-      update(dt) {
-        const nodes = [...this.nodes.values()]
+        <section data-slide>
+          <h3>Adjacency list</h3>
 
-        //**************************************************
-        for(const node of nodes) {
-          node.force.x = node.x * -this.GRAVITY_CONSTANT
-          node.force.y = node.y * -this.GRAVITY_CONSTANT
-        }
+          <ul>
+            <li>An array of the lists representing connections to each node</li>
+            <li>Most useful if continuous access of a node's connections is needed</li>
+            <li>Space complexity: <em>O(V + E)</em></li>
+            <li>Time complexity - Connection checking: <em>O(N<sub>u</sub>)</em></li>
+            <li>Time complexity - Neighbours finding: <em>O(N<sub>u</sub>)</em></li>
+          </ul>
+        </section>
+      </section>
 
-        for (let i = 0; i < nodes.length; i++) {
-          for (let j = i + 1; j < nodes.length; j++) {
-            const dist = {
-              x: nodes[j].x - nodes[i].x,
-              y: nodes[j].y - nodes[i].y
-            }
-            const distMagPow2 = dist.x**2 + dist.y**2
-            const force = {
-              x: (dist.x/distMagPow2) * this.FORCE_CONSTANT,
-              y: (dist.y/distMagPow2) * this.FORCE_CONSTANT
-            }
-            nodes[i].force.x -= force.x 
-            nodes[i].force.y -= force.y 
-            nodes[j].force.x += force.x 
-            nodes[j].force.y += force.y 
-          }
-        }
+      <section data-slide>
+        <h2>Traversal Algorithms</h2>
 
-        for(const conn of this.connectionList) {
-          const dist = {
-            x: conn[0].x - conn[1].x,
-            y: conn[0].y - conn[1].y
-          }
+        <ul>
+          <li>Depth First Traversal</li>
+          <li>Breadth First Traversal</li>
+        </ul>
 
-          conn[0].force.x -= dist.x 
-          conn[0].force.y -= dist.y 
-          conn[1].force.x += dist.x 
-          conn[1].force.y += dist.y 
-        }
-        //**************************************************
+        <section data-slide>
+          <h3>Depth First Traversal</h3>
+        </section>
 
-        for(const node of nodes) {
-          node.update(dt)
-        }
-      }
-
-      render(ctx, camera) {
-        const nodes = [...graph.nodes.values()]
-        ctx.fillStyle = COLORS.foreground
-        ctx.strokeStyle = COLORS.foreground
-
-        for(const conn of graph.connectionList) {
-          ctx.beginPath()
-          ctx.moveTo(conn[0].x, conn[0].y)
-          ctx.lineTo(conn[1].x, conn[1].y)
-          ctx.stroke()
-        }
-        
-        for(const node of nodes) {
-          node.render(ctx)
-        }
-      }
-    }
-  </script>
-
-  <script id="update-loop">
-    const updateListeners = new Set()
-    const renderListeners = new Set()
-    function onUpdate(listener) { updateListeners.add(listener) }
-    function onRender(listener) { renderListeners.add(listener) }
-    window.onUpdate = onUpdate
-    window.onRender = onRender
-
-    let startTime, currTime, prevTime, elapsedTime, dt
-    function loop(timestamp) {
-      if(startTime == null) startTime = timestamp
-      currTime = timestamp
-      elapsedTime = currTime - startTime
-      if(elapsedTime === 0) prevTime = currTime
-      dt = currTime - prevTime
-      prevTime = currTime
-      for(const listener of [...updateListeners]) {
-        listener({dt})
-      }
-      for(const listener of [...renderListeners]) {
-        listener({dt})
-      }
-      window.requestAnimationFrame(loop)
-    }
-
-    window.requestAnimationFrame(loop)
-  </script>
-
-  <script id="colors">
-    const COLORS = {
-      background: "#212121",
-      foreground: "#adadad",
-      emphasis: "#eeeeee"
-    }
-    window.COLORS = COLORS
-  </script>
-
-  <script id="canvas-setup">
-    /** @type {HTMLCanvasElement} */
-    const visCanvas = document.querySelector("canvas#vis-canvas")
-    if(visCanvas == null) alert("Couldn't find your fucking canvas")
-    const visCtx = visCanvas.getContext("2d")
-
-    /**
-     * @see https://github.com/robashton/camera/blob/master/camera.js
-     */
-    const visCamera = {
-      distance: 1000,
-      fov: Math.PI / 4,
-      position: {x: 0, y: 0},
-      viewport: {
-        width: 0,
-        height: 0,
-        scale: {x: 0, y: 0}
-      },
-      begin() {
-        visCtx.save()
-        this.applyScale()
-        this.applyTranslation()
-      },
-      end() {
-        visCtx.restore()
-      },
-      applyScale() {
-        visCtx.scale(this.viewport.scale.x, this.viewport.scale.y)
-      },
-      applyTranslation() {
-        visCtx.translate(-(this.position.x - this.viewport.width/2), -(this.position.y - this.viewport.height/2))
-      },
-      updateViewport(){
-        this.aspectRatio = visCanvas.width/visCanvas.height
-        this.viewport.width = this.distance * Math.tan(this.fov)
-        this.viewport.height = this.viewport.width / this.aspectRatio
-        this.viewport.scale.x = visCanvas.width/this.viewport.width
-        this.viewport.scale.y = visCanvas.height/this.viewport.height
-      },
-      zoomTo(z) {
-        this.distance = z
-        if(this.distance <= 1) {
-          this.distance = 1
-        }
-        this.updateViewport()
-      },
-      zoomBy(z) {
-        this.distance += z
-        if(this.distance <= 1) {
-          this.distance = 1
-        }
-        this.updateViewport()
-      },
-      moveTo(x, y) {
-        this.position.x = x
-        this.position.y = y
-        this.updateViewport()
-      },
-      moveBy(x, y) {
-        this.position.x += x
-        this.position.y += y
-        this.updateViewport()
-      },
-      screenToWorld(x, y, obj = {}) {
-        obj.x = 2 * (x / this.viewport.scale.x) + (this.position.x - this.viewport.width/2);
-        obj.y = 2 * (y / this.viewport.scale.y) + (this.position.y - this.viewport.height/2);
-        return obj;
-      },
-      worldToScreen(x, y, obj = {}) {
-        obj.x = (x - (this.position.x - this.viewport.width/2)) * (this.viewport.scale.x) / 2;
-        obj.y = (y - (this.position.y - this.viewport.height/2)) * (this.viewport.scale.y) / 2;
-        return obj;
-      }
-    }
-
-    function resizeCanvas() {
-      visCanvas.width = window.innerWidth * window.devicePixelRatio
-      visCanvas.height = window.innerHeight * window.devicePixelRatio
-    }
-    
-    resizeCanvas()
-    visCamera.updateViewport()
-    window.addEventListener("resize", () => {
-      resizeCanvas()
-      visCamera.updateViewport()
-    })
-    window.addEventListener("wheel", e => {
-      e.preventDefault()
-      if (e.ctrlKey) {
-        visCamera.zoomBy(-e.deltaY * 20); 
-      } else {
-        visCamera.moveBy(e.deltaX * 2, e.deltaY * 2);
-      }
-    }, {passive: false})
-    window.addEventListener("keydown", e => {
-      if(e.key == "r") {
-        visCamera.zoomTo(1000)
-        visCamera.moveTo(0, 0)
-      }
-    })
-
-    onRender(() => {
-      visCtx.fillStyle = COLORS.background
-      visCtx.fillRect(0, 0, visCanvas.width, visCanvas.height)
-    })
-  </script>
-
-  <script id="main">
-    const graph = new VisGraph()
-    let isMouseDown = false
-    let prevSelectedNode = null
-    let selectedNode = null
-    let lerpValue = 0.05
-    const mouse = {x: 0, y: 0}
-
-    onUpdate(({dt}) => {
-      graph.update(dt/1000)
-      if(isMouseDown) {
-        if(selectedNode == null) return
-        selectedNode.x += (mouse.x - selectedNode.x) * lerpValue
-        selectedNode.y += (mouse.y - selectedNode.y) * lerpValue
-        if (lerpValue < 0.99) {
-          lerpValue+=0.01;
-        }
-      }
-    })
-    onRender(() => {
-      visCamera.begin()
-      graph.render(visCtx, visCamera)
-      visCamera.end()
-    })
-
-    window.addEventListener("mousemove", e => {
-      visCamera.screenToWorld(e.clientX, e.clientY, mouse)
-    })
-
-    window.addEventListener("mousedown", e => {
-      isMouseDown = true
-      let minPosMagPow2 = Infinity
-      let closeNode = null
-      for(const node of [...graph.nodes.values()]) {
-        const posMagPow2 = (node.x - mouse.x)**2 + (node.y - mouse.y)**2
-        if(posMagPow2 > minPosMagPow2) continue
-        minPosMagPow2 = posMagPow2
-        closeNode = node
-      }
-
-      prevSelectedNode = selectedNode
-      selectedNode = closeNode
-      selectedNode.backgroundStyle = COLORS.emphasis
-    })
-
-    window.addEventListener("mouseup", () => {
-      isMouseDown = false
-      if(selectedNode != null) {
-        selectedNode.backgroundStyle = COLORS.foreground
-      }
-      selectedNode = prevSelectedNode
-      lerpValue = 0.05
-    })
-
-    const NODE_LIST = ["A", "B", "C", "D"]
-    const CONNECTION_LIST = [["A", "B"], ["C", "B"], ["C", "D"], ["A", "D"]]
-    const LARGE_NODE_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-    const LARGE_CONNECTION_LIST = [
-      ["A", "B"], ["B", "C"], ["C", "D"], ["D", "E"], ["E", "F"],
-      ["F", "G"], ["G", "H"], ["H", "I"], ["I", "J"], ["J", "K"],
-      ["K", "L"], ["L", "M"], ["M", "N"], ["N", "O"], ["O", "P"],
-      ["P", "Q"], ["Q", "R"], ["R", "S"], ["S", "T"], ["T", "U"],
-      ["U", "V"], ["V", "W"], ["W", "X"], ["X", "Y"], ["Y", "Z"],
-      ["A", "Z"], ["B", "Y"], ["C", "X"], ["D", "W"], ["E", "V"]
-      // Add more connections as needed
-    ];
-    const HUGE_NODE_LIST = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40"];
-    const HUGE_CONNECTION_LIST = [
-      ["1", "2"], ["2", "3"], ["3", "4"], ["4", "5"], ["5", "6"],
-      ["6", "7"], ["7", "8"], ["8", "9"], ["9", "10"], ["10", "11"],
-      ["11", "12"], ["12", "13"], ["13", "14"], ["14", "15"], ["15", "16"],
-      ["16", "17"], ["17", "18"], ["18", "19"], ["19", "20"], ["20", "21"],
-      ["21", "22"], ["22", "23"], ["23", "24"], ["24", "25"], ["25", "26"],
-      ["26", "27"], ["27", "28"], ["28", "29"], ["29", "30"], ["30", "31"],
-      ["31", "32"], ["32", "33"], ["33", "34"], ["34", "35"], ["35", "36"],
-      ["36", "37"], ["37", "38"], ["38", "39"], ["39", "40"], ["1", "40"]
-      // Add more connections as needed
-    ];
-
-    for(const node of NODE_LIST) {
-      graph.addNode(node)
-    }
-    for(const [src, dst] of CONNECTION_LIST) {
-      graph.addEdge(src, dst)
-    }
-  </script>
+        <section data-slide>
+          <h3>Breadth First Traversal</h3>
+        </section>
+      </section>
+    </article>
+  </main>
 </body>
 </html>
