@@ -12,34 +12,35 @@
 <body>
   <main>
     <div class="presentation-controls">
-      <button type="button" data-control-prev>Prev</button>
       <button type="button" data-control-next>Next</button>
+      <button type="button" data-control-prev>Prev</button>
+      <button type="button" data-control-full-screen>Full screen</button>
     </div>
 
     <article data-presentation>
-      <section data-slide>
+      <section data-slide class="title-slide">
         <h1>
           Graph
           <span>data structure</span>
         </h1>
   
-        <p>By <a href="https://github.com/ka-fuachie" target="_blank" rel="author">Kwabena Afari Fuachie</a></p>
+        <p>By <em><a href="https://github.com/ka-fuachie" target="_blank" rel="author">Kwabena Afari Fuachie</a></em></p>
       </section>
   
       <section data-slide>
         <h2>What is a graph</h2>
         <ul>
-          <li>It is a collection of <b>nodes</b> and <b>edges</b></li>
-          <li>Nodes contain data</li>
-          <li>Edges are connections between nodes</li>
+          <li data-fragment>It is a collection of <b>nodes</b> and <b>edges</b></li>
+          <li data-fragment>Nodes contain data</li>
+          <li data-fragment>Edges are connections between nodes</li>
         </ul>
       </section>
   
       <section data-slide>
         <h2>Types of graphs</h2>
         <ul>
-          <li>Directed and undirected graphs</li>
-          <li>Weighted and unweighted graphs</li>
+          <li data-fragment>Directed and undirected graphs</li>
+          <li data-fragment>Weighted and unweighted graphs</li>
         </ul>
       </section>
 
@@ -47,14 +48,14 @@
         <h2>Terminologies</h2>
 
         <ul>
-          <li>Vertices</li>
-          <li>
+          <li data-fragment>Vertices</li>
+          <li data-fragment>
             Adjacent nodes
-            <ul>
+            <ul data-note>
               <li>Adjacent nodes are neighbours</li>
             </ul>
           </li>
-          <li>Cyclic and acyclic paths</li>
+          <li data-fragment>Cyclic and acyclic paths</li>
         </ul>
       </section>
 
@@ -62,7 +63,7 @@
         <h2>Use cases</h2>
 
         <ul>
-          <li>Great for describing relationships between things</li>
+          <li data-fragment>Great for describing relationships between things</li>
         </ul>
       </section>
 
@@ -70,19 +71,19 @@
         <h2>Representation</h2>
 
         <ul>
-          <li>Adjacency matrix</li>
-          <li>Adjacency list</li>
+          <li data-fragment>Adjacency matrix</li>
+          <li data-fragment>Adjacency list</li>
         </ul>
 
         <section data-slide>
           <h3>Adjacency matrix</h3>
 
           <ul>
-            <li>A 2d matrix of nodes with connections represented by a boolean value</li>
-            <li>Most helpful for small graphs or almost complete graphs</li>
-            <li>Space complexity: <em>O(V<sup>2</sup>)</em></li>
-            <li>Time complexity - Connection checking: <em>O(1)</em></li>
-            <li>Time complexity - Neighbours finding: <em>O(V)</em></li>
+            <li data-fragment>A 2d matrix of nodes with connections represented by a boolean value</li>
+            <li data-fragment>Most helpful for small graphs or almost complete graphs</li>
+            <li data-fragment>Space complexity: <em>O(V<sup>2</sup>)</em></li>
+            <li data-fragment>Time complexity - Connection checking: <em>O(1)</em></li>
+            <li data-fragment>Time complexity - Neighbours finding: <em>O(V)</em></li>
           </ul>
         </section>
 
@@ -90,11 +91,11 @@
           <h3>Adjacency list</h3>
 
           <ul>
-            <li>An array of the lists representing connections to each node</li>
-            <li>Most useful if continuous access of a node's connections is needed</li>
-            <li>Space complexity: <em>O(V + E)</em></li>
-            <li>Time complexity - Connection checking: <em>O(N<sub>u</sub>)</em></li>
-            <li>Time complexity - Neighbours finding: <em>O(N<sub>u</sub>)</em></li>
+            <li data-fragment>An array of the lists representing connections to each node</li>
+            <li data-fragment>Most useful if continuous access of a node's connections is needed</li>
+            <li data-fragment>Space complexity: <em>O(V + E)</em></li>
+            <li data-fragment>Time complexity - Connection checking: <em>O(N<sub>u</sub>)</em></li>
+            <li data-fragment>Time complexity - Neighbours finding: <em>O(N<sub>u</sub>)</em></li>
           </ul>
         </section>
       </section>
@@ -103,8 +104,8 @@
         <h2>Traversal Algorithms</h2>
 
         <ul>
-          <li>Depth First Traversal</li>
-          <li>Breadth First Traversal</li>
+          <li data-fragment>Depth First Traversal</li>
+          <li data-fragment>Breadth First Traversal</li>
         </ul>
 
         <section data-slide>
