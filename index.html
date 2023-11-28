@@ -7,116 +7,139 @@
 
   <link rel="stylesheet" href="styles.css">
   <script src="main.js" defer></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+    }
+    </style>
 </head>
 
 <body>
   <main>
     <div class="presentation-controls">
-      <button type="button" data-control-next>Next</button>
-      <button type="button" data-control-prev>Prev</button>
-      <button type="button" data-control-full-screen>Full screen</button>
+      <button type="button" data-control-next title="Next">
+        <span class="material-symbols-outlined">arrow_forward_ios</span>
+      </button>
+      <button type="button" data-control-prev title="Prev">
+        <span class="material-symbols-outlined">arrow_back_ios_new</span>
+      </button>
+      <button type="button" data-control-full-screen title="Fullscreen">
+        <span class="material-symbols-outlined">fullscreen</span>
+      </button>
     </div>
 
-    <article data-presentation>
-      <section data-slide class="title-slide">
-        <h1>
-          Graph
-          <span>data structure</span>
-        </h1>
+    <div class="presentation-wrapper">
+      <article data-presentation>
+        <section data-slide class="title-slide">
+          <h1>
+            Graph
+            <span>data structure</span>
+          </h1>
+    
+          <p>By <em><a href="https://github.com/ka-fuachie" target="_blank" rel="author">Kwabena Afari Fuachie</a></em></p>
+        </section>
+    
+        <section data-slide>
+          <h2>What is a graph</h2>
+          <ul>
+            <li data-fragment>It is a collection of <b>nodes</b> and <b>edges</b></li>
+            <li data-fragment>Nodes contain data</li>
+            <li data-fragment>Edges are connections between nodes</li>
+          </ul>
+        </section>
+    
+        <section data-slide>
+          <h2>Types of graphs</h2>
+          <ul>
+            <li data-fragment>Directed and undirected graphs</li>
+            <li data-fragment>Weighted and unweighted graphs</li>
+          </ul>
+        </section>
   
-        <p>By <em><a href="https://github.com/ka-fuachie" target="_blank" rel="author">Kwabena Afari Fuachie</a></em></p>
-      </section>
+        <section data-slide>
+          <h2>Terminologies</h2>
   
-      <section data-slide>
-        <h2>What is a graph</h2>
-        <ul>
-          <li data-fragment>It is a collection of <b>nodes</b> and <b>edges</b></li>
-          <li data-fragment>Nodes contain data</li>
-          <li data-fragment>Edges are connections between nodes</li>
-        </ul>
-      </section>
+          <ul>
+            <li data-fragment>Vertices</li>
+            <li data-fragment>
+              Adjacent nodes
+              <ul data-note>
+                <li>Adjacent nodes are neighbours</li>
+              </ul>
+            </li>
+            <li data-fragment>Cyclic and acyclic paths</li>
+          </ul>
+        </section>
   
-      <section data-slide>
-        <h2>Types of graphs</h2>
-        <ul>
-          <li data-fragment>Directed and undirected graphs</li>
-          <li data-fragment>Weighted and unweighted graphs</li>
-        </ul>
-      </section>
-
-      <section data-slide>
-        <h2>Terminologies</h2>
-
-        <ul>
-          <li data-fragment>Vertices</li>
-          <li data-fragment>
-            Adjacent nodes
-            <ul data-note>
-              <li>Adjacent nodes are neighbours</li>
+        <section data-slide>
+          <h2>Use cases</h2>
+  
+          <ul>
+            <li data-fragment>Great for describing relationships between things</li>
+          </ul>
+        </section>
+  
+        <section data-slide>
+          <h2>Representation</h2>
+  
+          <ul>
+            <li data-fragment>Adjacency matrix</li>
+            <li data-fragment>Adjacency list</li>
+          </ul>
+  
+          <section data-slide>
+            <h3>Adjacency matrix</h3>
+  
+            <ul>
+              <li data-fragment>A 2d matrix of nodes with connections represented by a boolean value</li>
+              <li data-fragment>Most helpful for small graphs or almost complete graphs</li>
+              <li data-fragment>Space complexity: <em>O(V<sup>2</sup>)</em></li>
+              <li data-fragment>Time complexity - Connection checking: <em>O(1)</em></li>
+              <li data-fragment>Time complexity - Neighbours finding: <em>O(V)</em></li>
             </ul>
-          </li>
-          <li data-fragment>Cyclic and acyclic paths</li>
-        </ul>
-      </section>
-
-      <section data-slide>
-        <h2>Use cases</h2>
-
-        <ul>
-          <li data-fragment>Great for describing relationships between things</li>
-        </ul>
-      </section>
-
-      <section data-slide>
-        <h2>Representation</h2>
-
-        <ul>
-          <li data-fragment>Adjacency matrix</li>
-          <li data-fragment>Adjacency list</li>
-        </ul>
-
+          </section>
+  
+          <section data-slide>
+            <h3>Adjacency list</h3>
+  
+            <ul>
+              <li data-fragment>An array of the lists representing connections to each node</li>
+              <li data-fragment>Most useful if continuous access of a node's connections is needed</li>
+              <li data-fragment>Space complexity: <em>O(V + E)</em></li>
+              <li data-fragment>Time complexity - Connection checking: <em>O(N<sub>u</sub>)</em></li>
+              <li data-fragment>Time complexity - Neighbours finding: <em>O(N<sub>u</sub>)</em></li>
+            </ul>
+          </section>
+        </section>
+  
         <section data-slide>
-          <h3>Adjacency matrix</h3>
-
+          <h2>Traversal Algorithms</h2>
+  
           <ul>
-            <li data-fragment>A 2d matrix of nodes with connections represented by a boolean value</li>
-            <li data-fragment>Most helpful for small graphs or almost complete graphs</li>
-            <li data-fragment>Space complexity: <em>O(V<sup>2</sup>)</em></li>
-            <li data-fragment>Time complexity - Connection checking: <em>O(1)</em></li>
-            <li data-fragment>Time complexity - Neighbours finding: <em>O(V)</em></li>
+            <li data-fragment>Depth First Traversal</li>
+            <li data-fragment>Breadth First Traversal</li>
           </ul>
+  
+          <section data-slide>
+            <h3>Depth First Traversal</h3>
+          </section>
+  
+          <section data-slide>
+            <h3>Breadth First Traversal</h3>
+          </section>
         </section>
-
-        <section data-slide>
-          <h3>Adjacency list</h3>
-
-          <ul>
-            <li data-fragment>An array of the lists representing connections to each node</li>
-            <li data-fragment>Most useful if continuous access of a node's connections is needed</li>
-            <li data-fragment>Space complexity: <em>O(V + E)</em></li>
-            <li data-fragment>Time complexity - Connection checking: <em>O(N<sub>u</sub>)</em></li>
-            <li data-fragment>Time complexity - Neighbours finding: <em>O(N<sub>u</sub>)</em></li>
-          </ul>
-        </section>
-      </section>
-
-      <section data-slide>
-        <h2>Traversal Algorithms</h2>
-
-        <ul>
-          <li data-fragment>Depth First Traversal</li>
-          <li data-fragment>Breadth First Traversal</li>
-        </ul>
-
-        <section data-slide>
-          <h3>Depth First Traversal</h3>
-        </section>
-
-        <section data-slide>
-          <h3>Breadth First Traversal</h3>
-        </section>
-      </section>
-    </article>
+      </article>
+    </div>
   </main>
 </body>
 </html>

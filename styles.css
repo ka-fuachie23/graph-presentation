@@ -62,8 +62,20 @@ body{
 }
 
 /* CUSTOM */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 :root {
+  --far-background-color: #1b1b1b;
   --primary-background-color: #212121;
+  --secondary-background-color: #2a2a2a;
   --primary-foreground-color: #adadad;
   --emphasis-foreground-color: #eeeeee;
   --goal-hue: 152;
@@ -72,9 +84,12 @@ body{
 }
 
 main {
+  display: grid;
+  padding: 2rem;
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
+  background-color: var(--far-background-color);
 }
 
 em {
@@ -82,25 +97,94 @@ em {
 }
 
 b {
-  font-weight: bold;
+  font-weight: 600;
   color: var(--emphasis-foreground-color);
 }
 
 .presentation-controls {
+  --outer-padding: 2rem;
   position: fixed;
-  bottom: 1rem;
-  right: 1rem;
+  bottom: var(--outer-padding);
+  right: var(--outer-padding);
   display: flex;
   flex-direction: row-reverse;
   gap: 0.5rem;
   z-index: 100;
+  width: calc(100% - 2 * var(--outer-padding));
+  padding: 2rem;
+  border-radius: 2rem;
+  opacity: 0;
+  transition: opacity 150ms;
+}
+
+.presentation-controls:where(:hover, :focus-within) {
+  transition: opacity 350ms;
+  opacity: 1;
+}
+
+:where(.presentation-controls) button {
+  --size: 3rem;
+  display: grid;
+  place-content: center;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  font-size: 1.5rem;
+  position: relative;
+  isolation: isolate;
+  transition: transform 350ms;
+}
+
+:where(.presentation-controls) button:active {
+  transition: transform 150ms;
+  transform: scale(0.95);
+}
+
+:where(.presentation-controls) button::before,
+:where(.presentation-controls) button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: -1;
+  border-radius: inherit;
+  transition: opacity 150ms;
+}
+
+:where(.presentation-controls) button::before {
+  border: 1px solid var(--primary-foreground-color);
+  opacity: 0.5;
+}
+
+:where(.presentation-controls) button:active::before {
+  opacity: 0.75;
+}
+
+:where(.presentation-controls) button:is(:hover, :focus-visible)::after {
+  opacity: 0.075;
+  background-color: var(--emphasis-foreground-color);
+}
+
+:where(.presentation-controls) button:active::after {
+  opacity: 0.15;
+}
+
+.presentation-wrapper {
+  position: relative;
+  border-radius: 2rem;
 }
 
 [data-presentation] {
   background-color: var(--primary-background-color);
   color: var(--primary-foreground-color);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  /* font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
   font-size: 1.25rem;
+  border-radius: inherit;
 }
 
 [data-slide]:where([data-current]:has([data-fragment]):not(:has([data-active]))) {
@@ -110,7 +194,7 @@ b {
 
 [data-slide]:not(:has([data-current])) {
   padding: 3rem;
-  border: 1px solid #fff3;
+  /* border: 1px solid #fff3; */
 }
 
 .title-slide:where([data-current]) {
@@ -120,7 +204,7 @@ b {
 }
 
 .title-slide h1 {
-  font-size: 10rem;
+  font-size: 7.5rem;
   color: var(--emphasis-foreground-color);
   line-height: 1em;
 }
@@ -139,10 +223,15 @@ b {
 }
 
 :where([data-slide]) :is(h2, h3, h4, h5, h6) {
+  font-family: 'Montserrat', sans-serif;
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: 600;
   color: var(--emphasis-foreground-color);
   margin-bottom: 1rem;
+}
+
+:where([data-slide][data-current]:has([data-fragment]):not(:has([data-active]))) :is(h2, h3, h4, h5, h6) {
+  font-size: 3.5rem;
 }
 
 :where([data-slide]) li {
