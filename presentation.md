@@ -25,8 +25,12 @@
 ## Traversall algorithms
 
 ### Depth first
+- Explores nodes as far as possible down a path
+- Does not always guarantee the shortest path
 
 ### Breadth first
+- Explores nodes equally in all directions
+- Always guarantees the shortest path
 
 ## Algorithm problems
 - 

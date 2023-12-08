@@ -83,6 +83,10 @@ body{
   --bft-hue: 205;
 }
 
+::selection {
+  background: hsl(var(--goal-hue) 60% 45% / 0.5);
+}
+
 main {
   display: grid;
   padding: 2rem;
@@ -197,27 +201,27 @@ b {
   /* border: 1px solid #fff3; */
 }
 
-.title-slide:where([data-current]) {
+[data-slide="title"]:where([data-current]) {
   display: grid;
   place-content: center;
   gap: 1rem;
 }
 
-.title-slide h1 {
+[data-slide="title"] h1 {
   font-size: 7.5rem;
   color: var(--emphasis-foreground-color);
   line-height: 1em;
 }
 
-.title-slide h1 span {
+[data-slide="title"] h1 span {
   color: var(--primary-foreground-color);
 }
 
-.title-slide p {
+[data-slide="title"] p {
   margin-left: 1rem;
 }
 
-.title-slide a[rel="author"] {
+[data-slide="title"] a[rel="author"] {
   color: hsl(var(--goal-hue) 60% 45%);
   text-decoration: wavy;
 }

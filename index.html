@@ -6,6 +6,10 @@
   <title>Graph Data structure</title>
 
   <link rel="stylesheet" href="styles.css">
+  <script src="presentation.js" defer></script>
+  <script src="animate.js" defer></script>
+  <script src="renderer.js" defer></script>
+  <script src="graph.js" defer></script>
   <script src="main.js" defer></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +44,7 @@
 
     <div class="presentation-wrapper">
       <article data-presentation>
-        <section data-slide class="title-slide">
+        <section data-slide="title">
           <h1>
             Graph
             <span>data structure</span>
@@ -49,13 +53,19 @@
           <p>By <em><a href="https://github.com/ka-fuachie" target="_blank" rel="author">Kwabena Afari Fuachie</a></em></p>
         </section>
     
-        <section data-slide>
+        <section data-slide="what-is">
           <h2>What is a graph</h2>
-          <ul>
-            <li data-fragment>It is a collection of <b>nodes</b> and <b>edges</b></li>
-            <li data-fragment>Nodes contain data</li>
-            <li data-fragment>Edges are connections between nodes</li>
-          </ul>
+          <div style="display: flex; align-items: stretch; height: 80%;">
+            <ul style="flex: 1">
+              <li data-fragment>It is a collection of <b>nodes</b> and <b>edges</b></li>
+              <li data-fragment>Nodes contain data</li>
+              <li data-fragment>Edges are connections between nodes</li>
+            </ul>
+
+            <div style="flex: 1;">
+
+            </div>
+          </div>
         </section>
     
         <section data-slide>
@@ -85,16 +95,17 @@
           <h2>Use cases</h2>
   
           <ul>
-            <li data-fragment>Great for describing relationships between things</li>
+            <li data-fragment>Describing relationships between things</li>
+            <li data-fragment>Representing State transition diagrams</li>
           </ul>
         </section>
   
         <section data-slide>
           <h2>Representation</h2>
   
-          <ul>
-            <li data-fragment>Adjacency matrix</li>
-            <li data-fragment>Adjacency list</li>
+          <ul data-fragment>
+            <li>Adjacency matrix</li>
+            <li>Adjacency list</li>
           </ul>
   
           <section data-slide>
@@ -103,9 +114,9 @@
             <ul>
               <li data-fragment>A 2d matrix of nodes with connections represented by a boolean value</li>
               <li data-fragment>Most helpful for small graphs or almost complete graphs</li>
-              <li data-fragment>Space complexity: <em>O(V<sup>2</sup>)</em></li>
-              <li data-fragment>Time complexity - Connection checking: <em>O(1)</em></li>
-              <li data-fragment>Time complexity - Neighbours finding: <em>O(V)</em></li>
+              <li data-fragment>Space complexity: <em><b>O(V<sup>2</sup>)</b></em></li>
+              <li data-fragment>Time complexity - Connection checking: <em><b>O(1)</b></em></li>
+              <li data-fragment>Time complexity - Neighbours finding: <em><b>O(V)</b></em></li>
             </ul>
           </section>
   
@@ -115,9 +126,9 @@
             <ul>
               <li data-fragment>An array of the lists representing connections to each node</li>
               <li data-fragment>Most useful if continuous access of a node's connections is needed</li>
-              <li data-fragment>Space complexity: <em>O(V + E)</em></li>
-              <li data-fragment>Time complexity - Connection checking: <em>O(N<sub>u</sub>)</em></li>
-              <li data-fragment>Time complexity - Neighbours finding: <em>O(N<sub>u</sub>)</em></li>
+              <li data-fragment>Space complexity: <em><b>O(V + E)</b></em></li>
+              <li data-fragment>Time complexity - Connection checking: <em><b>O(N<sub>u</sub>)</b></em></li>
+              <li data-fragment>Time complexity - Neighbours finding: <em><b>O(N<sub>u</sub>)</b></em></li>
             </ul>
           </section>
         </section>
@@ -125,17 +136,29 @@
         <section data-slide>
           <h2>Traversal Algorithms</h2>
   
-          <ul>
-            <li data-fragment>Depth First Traversal</li>
-            <li data-fragment>Breadth First Traversal</li>
+          <ul data-fragment>
+            <li>Depth First Traversal</li>
+            <li>Breadth First Traversal</li>
           </ul>
   
           <section data-slide>
             <h3>Depth First Traversal</h3>
+            <ul>
+              <li data-fragment>Explores nodes as far as possible down a path</li>
+              <li data-fragment>Does not always guarantee the shortest path</li>
+            </ul>
           </section>
   
           <section data-slide>
             <h3>Breadth First Traversal</h3>
+            <ul>
+              <li data-fragment>Explores nodes equally in all directions</li>
+              <li data-fragment>Always guarantees the shortest path</li>
+            </ul>
+          </section>
+
+          <section data-slide>
+            <h3>Demo</h3>
           </section>
         </section>
       </article>
